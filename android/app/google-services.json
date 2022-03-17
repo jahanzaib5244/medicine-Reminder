@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "82230107445",
+    "firebase_url": "https://medicine-reminder-c9aae-default-rtdb.firebaseio.com",
+    "project_id": "medicine-reminder-c9aae",
+    "storage_bucket": "medicine-reminder-c9aae.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:82230107445:android:83c1d12490ff9233fd407c",
+        "android_client_info": {
+          "package_name": "com.cgitmed_reminder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "82230107445-no85nri2glgtteasdfiu95c8hvq81qat.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cgitmed_reminder",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "82230107445-eoga8nps054hdv26rakcfdfv2nj5h3o6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDngzbrK135UkKGAjH21Nwzbw8q5RhFJNE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "82230107445-eoga8nps054hdv26rakcfdfv2nj5h3o6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
