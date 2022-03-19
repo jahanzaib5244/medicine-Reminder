@@ -8,3 +8,4 @@ export {default as SelectMedicine} from './selectMedicine/SelectMedicine';
 export {default as ConfirmMedicine} from './confirmMedicine/ConfirmMedicine';
 export {default as AddMeasurement} from './addMeasurement/AddMeasurement';
 export {default as SelectMeasurement} from './selectMeasurement/SelectMeasuremnt';
+export {default as UpdateSatus} from './updateStatus/UpdateSatus'

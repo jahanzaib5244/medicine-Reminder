@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import NavigationStrings from '../constants/NavigationStrings';
 import TabNavigation from './TabNavigation';
-import { AddMeasurement, ConfirmMedicine, SelectMeasurement, SelectMedicine } from '../screens';
+import { AddMeasurement, ConfirmMedicine, SelectMeasurement, SelectMedicine, UpdateSatus } from '../screens';
 import COLORS from '../style/COLORS';
 
 const Stack = createStackNavigator();
@@ -30,6 +30,9 @@ export default function StackNavigations() {
       })}
       />
       <Stack.Screen  name={NavigationStrings.SelectMeasurement} component={SelectMeasurement} />
+      <Stack.Screen options={{
+        headerShown:false
+      }}  name={NavigationStrings.updateStatus} component={UpdateSatus} />
     </Stack.Navigator>
   );
 }

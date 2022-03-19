@@ -7,18 +7,17 @@ import COLORS from '../style/COLORS'
 import FontSize from '../style/FontSize'
 import ImagesPath from '../constants/ImagesPath'
 
-export default function TreatmentCard() {
+export default function TreatmentCard({ item, index }) {
     return (
-
         <View style={styles.card}>
             <View style={styles.headingContainer}>
                 <Image source={ImagesPath.bell} style={styles.headingImage} />
-                <Text style={styles.headingText}>Blood</Text>
+                <Text style={styles.headingText}>{!!item?.MedName ? item?.MedName : 'No name'}</Text>
             </View>
-            <Text style={styles.descriptionText}>Daily-4:10 PM</Text>
+            <Text style={styles.descriptionText}>Daily-{!!item?.displayTime ? item.displayTime : 'No time'}</Text>
             <View style={styles.bottomContainer}>
                 <View style={styles.piilsContainer} >
-                    <Text style={styles.PillsText} >0 pills(s) left</Text>
+                    <Text style={styles.PillsText} >{!!item?.Leftpills ? item.Leftpills : 'NO provided'} {!!item.Unit ? `${item.Unit} left` : ''}</Text>
                 </View>
                 <View style={styles.bellContainer}>
                     <Image source={ImagesPath.bell} style={styles.BellImage} />
@@ -42,26 +41,26 @@ const styles = StyleSheet.create({
     },
     headingContainer: {
         flexDirection: 'row',
-        marginTop:moderateVerticalScale(8),
+        marginTop: moderateVerticalScale(8),
 
 
     },
     headingImage: {
-      tintColor:COLORS.white,
-      height:moderateVerticalScale(18),
-      resizeMode:'contain',
-      width:moderateScale(30)
+        tintColor: COLORS.white,
+        height: moderateVerticalScale(18),
+        resizeMode: 'contain',
+        width: moderateScale(30)
     },
     headingText: {
-      color:COLORS.white,
-      fontSize:FontSize.heading,
-      fontWeight:'600'
+        color: COLORS.white,
+        fontSize: FontSize.heading,
+        fontWeight: '600'
     },
     descriptionText: {
-     color:COLORS.white50,
-     marginTop:moderateVerticalScale(7),
-     fontSize:FontSize.des,
-     marginHorizontal:moderateScale(5)
+        color: COLORS.white50,
+        marginTop: moderateVerticalScale(7),
+        fontSize: FontSize.des,
+        marginHorizontal: moderateScale(5)
     },
     piilsContainer: {
         backgroundColor: COLORS.yellow80,
@@ -73,7 +72,7 @@ const styles = StyleSheet.create({
     },
     PillsText: {
         color: COLORS.black,
-        fontSize:FontSize.des
+        fontSize: FontSize.des
 
     },
     bellContainer: {

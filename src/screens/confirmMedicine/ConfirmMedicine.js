@@ -14,13 +14,13 @@ export default function ConfirmMedicine({ navigation, route }) {
   const addBtnAnimation = useRef(new Animated.Value(0)).current
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [counter, setcounter] = useState(false)
-  const [time, settime] = useState('')
+  const [time, settime] = useState()
   const [displayDate, setdisplayDate] = useState('Today')
   const [displayTime, setdisplayTime] = useState()
   const [showTime, setshowTime] = useState(false)
   const [counterpills, setcounterpills] = useState(1)
   const [actualDose, setactualDose] = useState(1)
-  const [Date, setDate] = useState('')
+  const [Date, setDate] = useState()
   // console.log(Name, selectedUnit)
 
 const dispatch=useDispatch()
@@ -68,7 +68,7 @@ useEffect(() => {
       duration: 300,
       useNativeDriver: false
     }).start(() => {
-      dispatch(AddMedicineDB(Name,selectedUnit,actualDose,time,Date))
+      dispatch(AddMedicineDB(Name,selectedUnit,actualDose,time,Date,displayTime))
       navigation.navigate(NavigationStrings.Home)
     })
   }

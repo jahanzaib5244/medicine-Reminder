@@ -10,4 +10,5 @@ export default {
     yellow80:'rgba(255,255,100,0.9)',
     white50:'rgba(255,255,255,0.5)',
     success:'rgba(143,224,176,1)',
+    danger:'rgba(236,154,154,1)',
 }

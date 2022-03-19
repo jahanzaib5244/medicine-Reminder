@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, Animated } from 'react-native'
+import { View, Text, TouchableOpacity, Image, Animated,FlatList } from 'react-native'
 import React, { useState, useRef, useEffect } from 'react'
 
 
@@ -6,10 +6,12 @@ import TreatmentCard from '../../components/TreatmentCard'
 import { styles } from './styles'
 import ImagesPath from '../../constants/ImagesPath'
 import NavigationStrings from '../../constants/NavigationStrings'
-
+import { useSelector } from 'react-redux'
 
 
 export default function Treatment({ navigation }) {
+
+  const AllMedicine=useSelector(state=>state.Mainreducer.AllMedicine)
   const [height, setheight] = useState(0)
   const [translateY, settranslateY] = useState(false)
   const actionSheet = useRef(new Animated.Value(0)).current
@@ -47,9 +49,16 @@ export default function Treatment({ navigation }) {
   }
   return (
     <View style={styles.root}>
-      <TreatmentCard />
-      <TreatmentCard />
-      <TreatmentCard />
+      <FlatList 
+      data={AllMedicine}
+      keyExtractor={(item,index)=>index.toString()}
+      renderItem={({item,index})=>{
+        return(
+          <TreatmentCard item={item} index={index} />
+        )
+      }}
+      />
+     
       <TouchableOpacity onPress={() => BottomSheetAnimation(height)} activeOpacity={0.8} style={styles.AddBtn}>
         <Image style={styles.addBtnImg} source={ImagesPath.Add} />
         <Text style={styles.addBtnText}>ADD</Text>

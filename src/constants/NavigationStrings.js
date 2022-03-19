@@ -8,5 +8,6 @@ export default {
     ConfirmMedicine:"ConfirmMedicine",
     SelectMeasurement:"SelectMeasurement",
     AddMeasurement:"AddMeasurement",
+    updateStatus:"updateStatus",
 
 }
