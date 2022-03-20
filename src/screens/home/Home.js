@@ -11,7 +11,7 @@ import { getUserDataDB } from '../../store/actions/MedicineAction'
 
 
 export default function Home({ navigation }) {
-const DailyMedicine=useSelector(state=>state.Mainreducer.DailyMedicine)
+  const DailyMedicine = useSelector(state => state.Mainreducer.DailyMedicine)
 
   const [height, setheight] = useState(0)
   const [translateY, settranslateY] = useState(false)
@@ -39,7 +39,6 @@ const DailyMedicine=useSelector(state=>state.Mainreducer.DailyMedicine)
     dispatch(getUserDataDB(setloading))
 
     return () => {
-      console.log('bye')
       settranslateY(false)
     }
   }, [])
@@ -55,19 +54,19 @@ const DailyMedicine=useSelector(state=>state.Mainreducer.DailyMedicine)
 
       {loading ?
 
-        <View styles={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Text>Loading</Text>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <Text style={styles.loading}>Loading...</Text>
         </View>
         :
         <>
           <FlatList
             data={DailyMedicine}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={({item,index})=>{
-              if(item.Status == "pending"){
-              return(
-                <MedicineCard item={item} index={index} />
-              )
+            renderItem={({ item, index }) => {
+              if (item.Status == "pending") {
+                return (
+                  <MedicineCard item={item} index={index} />
+                )
               }
             }}
           />

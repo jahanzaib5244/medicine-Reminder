@@ -3,15 +3,15 @@ import database from '@react-native-firebase/database';
 import moment from 'moment'
 import COLORS from "../../style/COLORS";
 import { seduleNotification } from "../../helperfunction/NotificationHandler";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const AddMedicineDB = (Name, selectedUnit, actualDose, time, Date, displayTime) => async (dispatch) => {
     // console.log(Name,selectedUnit,actualDose,time,Date)
 
     try {
 
-
-        const AllMedicine = database().ref('users/123/AllMedicine').push()
+        const uid = await AsyncStorage.getItem('uid')
+        const AllMedicine = database().ref(`users/${uid}/AllMedicine`).push()
         const notificationID = Math.floor(Math.random() * 1000000000);
         seduleNotification(notificationID, AllMedicine.key, Date, time, displayTime, Name, actualDose, selectedUnit)
         const res = await AllMedicine.set({
@@ -29,7 +29,7 @@ export const AddMedicineDB = (Name, selectedUnit, actualDose, time, Date, displa
 
         const date = moment.now()
         const saveDate = moment(date).format('DD-MM-YYYY')
-        const HistoryPath = database().ref(`users/123/History/${saveDate}/${AllMedicine.key}`)
+        const HistoryPath = database().ref(`users/${uid}/History/${saveDate}/${AllMedicine.key}`)
 
         const res2 = await HistoryPath.set({
             key: AllMedicine.key,
@@ -44,17 +44,39 @@ export const AddMedicineDB = (Name, selectedUnit, actualDose, time, Date, displa
             displayTime,
 
         })
-        console.log(res, res2)
+        // console.log(res, res2)
     } catch (error) {
         console.log(error)
     }
 
 }
+
+export const DBupdateStatus = (item, status) => async (dispatch) => {
+    try {
+        const uid = await AsyncStorage.getItem('uid')
+        console.log(uid)
+        const date = moment.now()
+        const saveDate = moment(date).format('DD-MM-YYYY')
+        const res = await database().ref(`users/${uid}/History/${saveDate}/${item.key}`).update({
+            Status: status,
+        })
+
+    } catch (error) {
+        console.log(error)
+    }
+
+}
+
+
+
+
+
 export const AddMeasurement = (Name, selectedUnit, actualDose, time, Date) => async (dispatch) => {
-    console.log(Name, selectedUnit, actualDose, time, Date)
+    // console.log(Name, selectedUnit, actualDose, time, Date)
 
     try {
-        const res = await database().ref('users/123/History').push().set({
+        const uid = await AsyncStorage.getItem('uid')
+        const res = await database().ref(`users/${uid}/History`).push().set({
             medName: Name,
             date: Date,
             time: time,
@@ -73,33 +95,42 @@ export const getUserDataDB = (setloading) => async (dispatch) => {
     setloading(true)
 
     try {
-
+        const uid = await AsyncStorage.getItem('uid')
         //current date 
         const date = moment.now()
         const saveDate = moment(date).format('DD-MM-YYYY')
 
         // initialize Values
         var HistoryPath = true
-        var AllMedicine = []
-        var DailyMedicine = []
 
-
+        console.log(saveDate)
         // daily medice Path check 
-    
-        // fetch all medicine from databse
-        
-        
-              database().ref('users/123/AllMedicine').on('value',async (snapshot)=> {
+        database().ref(`users/${uid}/History/${saveDate}`).on('value', snapshot => {
             if (snapshot.exists()) {
-                await database().ref(`users/123/History/${saveDate}`).once("value", snapshot => {
-                    return HistoryPath = snapshot.exists()
+                const dailyMedicine = Object.values(snapshot.val()).filter(item => {
+                    return (item)
                 })
-        
-                Object.values(snapshot.val()).forEach(async (val) => {
-                    AllMedicine.push(val)
+                dispatch({
+                    type: DAILYMEDICINE,
+                    payload: dailyMedicine,
+                })
+            }
+        })
+
+
+
+        // fetch all medicine from databse
+        await database().ref(`users/${uid}/History/${saveDate}`).once("value", snapshot => {
+            return HistoryPath = snapshot.exists()
+        })
+
+        database().ref(`users/${uid}/AllMedicine`).on('value', async (snapshot) => {
+            if (snapshot.exists()) {
+                const AllMedicine = Object.values(snapshot.val()).filter(async (val) => {
+
                     if (!HistoryPath) {
                         if (val.AllStatus == "countinue") {
-                            await database().ref(`users/123/History/${saveDate}/${val.key}`).set({
+                            await database().ref(`users/${uid}/History/${saveDate}/${val.key}`).set({
                                 key: val.key,
                                 MedName: val.MedName,
                                 notificationID: val.notificationID,
@@ -114,42 +145,23 @@ export const getUserDataDB = (setloading) => async (dispatch) => {
                         }
 
                     }
-                    console.log(AllMedicine,'ALL medicine')
-                    dispatch({
-                        type:ALLMEDICINE,
-                        payload:AllMedicine
-                    })
+                    return (val)
+                })
+                dispatch({
+                    type: ALLMEDICINE,
+                    payload: AllMedicine
                 })
             }
-        }) 
-        database().ref('users/123/History').on('value', snapshot => {
-            
-            if (snapshot.exists()) {                 
+        })
+        database().ref(`users/${uid}/History`).on('value', snapshot => {
+
+            if (snapshot.exists()) {
                 dispatch({
                     type: MEDICINEHISTORY,
                     payload: snapshot.val(),
                 })
-                {
-                    Object.keys(snapshot.val()).forEach(async (val) => {
-
-                        if (val == saveDate) {
-                            Object.values(snapshot.val()).forEach(async (vales) => {
-                                Object.values(vales).forEach(item => {
-                                    DailyMedicine.push(item)
-                                })
-                                dispatch({
-                                    type: DAILYMEDICINE,
-                                    payload: DailyMedicine,
-                                })
-                            })
-                        }
-
-                    })
-                }
             }
-
         })
-      
 
     } catch (error) {
         console.log(error)

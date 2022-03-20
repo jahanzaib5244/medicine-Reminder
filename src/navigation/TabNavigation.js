@@ -1,16 +1,17 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import NavigationStrings from '../constants/NavigationStrings';
-import {Image} from 'react-native'
+import { Image ,TouchableOpacity,Text } from 'react-native'
 
 import { Home, Progress, Team, Treatment } from '../screens'
 import ImagesPath from '../constants/ImagesPath';
 import COLORS from '../style/COLORS'
+import { moderateScale } from 'react-native-size-matters';
 
 
 const Tab = createBottomTabNavigator();
 
-export default function TabNavigation() {
+export default function TabNavigation({navigation}) {
     return (
         <Tab.Navigator
             screenOptions={{
@@ -71,6 +72,13 @@ export default function TabNavigation() {
                 }} />
             <Tab.Screen name={NavigationStrings.Treatment} component={Treatment}
                 options={{
+                    headerRight:()=>{
+                        return(
+                            <TouchableOpacity onPress={()=>navigation.navigate(NavigationStrings.Seeting)} style={{paddingHorizontal:moderateScale(20)}}>
+                               <Image style={{tintColor:COLORS.white}} source={ImagesPath.setting} />
+                            </TouchableOpacity>
+                        )
+                    },
                     tabBarIcon: ({ focused ,size }) => {
                         return (
                             <Image style={{

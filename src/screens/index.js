@@ -9,3 +9,7 @@ export {default as ConfirmMedicine} from './confirmMedicine/ConfirmMedicine';
 export {default as AddMeasurement} from './addMeasurement/AddMeasurement';
 export {default as SelectMeasurement} from './selectMeasurement/SelectMeasuremnt';
 export {default as UpdateSatus} from './updateStatus/UpdateSatus'
+export {default as Login} from './login/Login'
+export {default as Signup} from './signup/Signup'
+export {default as ForgetPassword} from './forgetpassword/ForgetPassword'
+export {default as Setting} from './setting/Setting'

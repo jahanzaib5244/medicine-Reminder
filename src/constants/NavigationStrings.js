@@ -9,5 +9,9 @@ export default {
     SelectMeasurement:"SelectMeasurement",
     AddMeasurement:"AddMeasurement",
     updateStatus:"updateStatus",
+    Login:"Login",
+    Signup:"Signup",
+    ForgetPassword:"ForgetPassword",
+    Seeting:"Seeting",
 
 }

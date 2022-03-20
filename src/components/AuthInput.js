@@ -4,35 +4,28 @@ import COLORS from '../style/COLORS'
 import FontSize from '../style/FontSize'
 import { moderateScale, moderateVerticalScale } from 'react-native-size-matters'
 import ImagesPath from '../constants/ImagesPath'
+import { Colors } from 'react-native/Libraries/NewAppScreen'
 
 
-export default function AppInput({ value,selected,placeholderText='',inputStyle={}, ...props }) {
+export default function AuthInput({ onchange,blur,error, placeholderText='',inputStyle={},secure, ...props }) {
     const [BorderColor, setBorderColor] = useState(COLORS.white50)
-  const input = useRef()
+    const [show, setshow] = useState(!!secure ? true :false)
   
-  
-  const clearInput=()=>{
-      if(input.current){
-          input.current.clear()
-          value('')
-      }
-  }
     return (
-        <View style={[styles.container,inputStyle ,{ borderColor: BorderColor }]}>
+        <View style={[styles.container,inputStyle ,{ borderColor:error ? COLORS.danger: BorderColor }]}>
             <TextInput
                 {...props}
-                
-                onChangeText={(v) => value(v)}
-                ref={input}
+                secureTextEntry={show}
+                onChangeText={(e) => onchange(e)}
                 placeholder={!!placeholderText ? placeholderText : 'Medication name'}
-                placeholderTextColor={COLORS.white50}
+                placeholderTextColor={error ? COLORS.danger:COLORS.white50}
                 style={[styles.input, { borderColor: BorderColor }]}
                 onFocus={() => setBorderColor(COLORS.themeColor)}
-                onBlur={() => setBorderColor(COLORS.white50)}
+                onBlur={(e) => blur(e)}
             />
-            {!!selected?.length > 0 &&
-                <TouchableOpacity onPress={clearInput} style={{ paddingLeft:moderateScale(10),paddingRight:moderateScale(10) }}>
-                    <Image style={styles.closePic} source={ImagesPath.Close} />
+             {!!secure  &&
+                <TouchableOpacity onPress={()=>setshow(!show)} style={{ paddingLeft:moderateScale(10),paddingRight:moderateScale(10) }}>
+                    <Image style={[styles.closePic,{tintColor:error ? COLORS.danger:COLORS.white50}]} source={show?ImagesPath.hideEye:ImagesPath.showEye} />
                 </TouchableOpacity>
             }
         </View>
@@ -61,5 +54,8 @@ const styles = StyleSheet.create({
     },
     closePic: {
         tintColor: COLORS.white50,
+        height:moderateScale(18),
+        width:moderateScale(18),
+        resizeMode:'contain'
     }
 })

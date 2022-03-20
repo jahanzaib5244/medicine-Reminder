@@ -8,36 +8,22 @@ export const createChannelNoti = () => {
             channelId: `medicineReminder`, // (required)
             channelName: `medicine name`, // (required)
         },
-        created => console.log(`createChannel returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
+        created => console.log(` '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
     )
     )
 }
-// delete channel for specific notification
-export const deleteChannel = (id, name) => {
-    PushNotification.createChannel(
-        {
-            channelId: 'DemoAppID', // (required)
-            channelName: 'DemoApp', // (required)
-        },
-        created => console.log(`createChannel returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
-    );
-}
+
 // register sedule notification
 export const seduleNotification = (notificationID,FirebaseID, date, time, displayTime, Name, dose, unit) => {
     const fTime = time.split(':')
     const fDate = date.split('-')
-    console.log(fTime, 'time')
-    console.log(fDate, 'date')
     PushNotification.cancelAllLocalNotifications()
     const FireDATE = new Date(fDate[2], (fDate[1] - 1), fDate[0], fTime[0], fTime[1], 0, 0)
-    console.log(FireDATE)
-    
-     const notiTitile=`Medication due at ${displayTime}`
-     const notiMsg= `${Name} ${dose} ${unit}(s)`
-     PushNotification.localNotificationSchedule({
+
+      PushNotification.localNotificationSchedule({
          id:`${notificationID}`,
         title: `Medication due at ${displayTime}`,
-        message: `${Name} ${dose} ${unit}(s)`,
+        message: `${Name} ${dose} ${unit}`,
         date: FireDATE, // first trigger in 30 secs
         channelId: 'DemoAppID',
         allowWhileIdle: false,
@@ -47,13 +33,10 @@ export const seduleNotification = (notificationID,FirebaseID, date, time, displa
         soundName: "noti.wav",
         repeatTime: 24,
     });
-    var notificationId=''
-  
-   PushNotification.getScheduledLocalNotifications((res)=>{
-       console.log(res,'get sedule notification')
-   })
-
-   return(notificationId)
+    PushNotification.getScheduledLocalNotifications(noti=>{
+        console.log(noti ,'get All notification')
+    })
+   
 }
 export const snoozNotification = (title, msg, fireDate, channelid,) => {
     PushNotification.localNotificationSchedule({

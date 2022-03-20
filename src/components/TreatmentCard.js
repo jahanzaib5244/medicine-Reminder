@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image,TouchableOpacity } from 'react-native'
 import React from 'react'
 import { moderateScale, moderateVerticalScale } from 'react-native-size-matters'
 
@@ -7,9 +7,10 @@ import COLORS from '../style/COLORS'
 import FontSize from '../style/FontSize'
 import ImagesPath from '../constants/ImagesPath'
 
+
 export default function TreatmentCard({ item, index }) {
     return (
-        <View style={styles.card}>
+        <TouchableOpacity activeOpacity={0.8} style={styles.card}>
             <View style={styles.headingContainer}>
                 <Image source={ImagesPath.bell} style={styles.headingImage} />
                 <Text style={styles.headingText}>{!!item?.MedName ? item?.MedName : 'No name'}</Text>
@@ -23,7 +24,7 @@ export default function TreatmentCard({ item, index }) {
                     <Image source={ImagesPath.bell} style={styles.BellImage} />
                 </View>
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 

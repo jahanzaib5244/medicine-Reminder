@@ -25,6 +25,11 @@ export const styles = StyleSheet.create({
         fontSize: FontSize.heading,
       
     },
+    loading:{
+        color: COLORS.white,
+        fontWeight:'600',
+        fontSize: FontSize.extralarge,
+    },
     row: {
         flexDirection: 'row',
         alignItems: 'center',

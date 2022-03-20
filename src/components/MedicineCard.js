@@ -16,14 +16,12 @@ export default function MedicineCard({item,index}) {
   const navigation=useNavigation()
   
      useEffect(() => {
-         console.log(item.Time)
+       
        const dateNow=moment.now()
        const time=moment(dateNow).format('HH:mm')
        const HourMinute=time.split(':')
        const DBHourMinute=(item.Time).split(':')
-       console.log(DBHourMinute,HourMinute)
        if((parseInt(DBHourMinute[0])) >= (parseInt(HourMinute[0]))){
-           console.log('condition true for hours')
         if((parseInt(DBHourMinute[1]))  < (parseInt(HourMinute[1]))){
             setoverTime(true)
         }
@@ -56,7 +54,6 @@ const styles = StyleSheet.create({
         marginBottom: moderateVerticalScale(5),
         width: '100%',
         backgroundColor: COLORS.blackOpacity80,
-      
     },
     picbackContainer:{
         padding:moderateScale(2),
@@ -78,8 +75,6 @@ const styles = StyleSheet.create({
     image: {
         resizeMode: 'contain',
         tintColor: COLORS.themeColor,
-    
-   
     },
     pillText: {
         fontSize: FontSize.des,
@@ -92,7 +87,6 @@ const styles = StyleSheet.create({
     medHeading: {
         fontSize: FontSize.heading,
         color:COLORS.white,
-
     },
     textContainer: {
         paddingBottom:moderateVerticalScale(9)
@@ -100,9 +94,6 @@ const styles = StyleSheet.create({
     picContainer: {
         justifyContent:'center',
         alignItems:'center',
-        flex:0.19,
-
-   
-    
+        flex:0.19, 
     }
 })

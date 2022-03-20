@@ -1,10 +1,10 @@
-import { ALLMEDICINE, DAILYMEDICINE, MEDICINEHISTORY, USERDATA } from "../states"
+import { ALLMEDICINE, DAILYMEDICINE, LOGOUT, MEDICINEHISTORY, USERDATA } from "../states"
 
 const initialstate = {
     user: null,
-    AllMedicine:[],
-    DailyMedicine:[],
-    MedicineHistory:{},
+    AllMedicine: [],
+    DailyMedicine: [],
+    MedicineHistory: {},
 }
 
 export default function Mainreducer(state = initialstate, action) {
@@ -15,26 +15,33 @@ export default function Mainreducer(state = initialstate, action) {
 
             }
         }
-        case ALLMEDICINE:{
+        case ALLMEDICINE: {
             return {
                 ...state,
-                AllMedicine:action.payload,
+                AllMedicine: action.payload,
             }
         }
-        case DAILYMEDICINE:{
+        case DAILYMEDICINE: {
             return {
                 ...state,
-                DailyMedicine:action.payload,
+                DailyMedicine: action.payload,
             }
         }
-        case MEDICINEHISTORY:{
+        case MEDICINEHISTORY: {
             return {
                 ...state,
-                MedicineHistory:action.payload,
+                MedicineHistory: action.payload,
+            }
+        }
+        case LOGOUT: {
+            return {
+                ...state,
+                AllMedicine: [],
+                DailyMedicine: [],
+                MedicineHistory: {},
             }
         }
 
- 
 
         default:
             return state

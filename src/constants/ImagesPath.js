@@ -20,4 +20,6 @@ export default {
     Doctor: require('../assets/images/doctor.png'),
     ProgressBar: require('../assets/images/progress.png'),
     Team: require('../assets/images/team.png'),
+    logo: require('../assets/images/logo.png'),
+    setting: require('../assets/images/setting.png'),
 }
